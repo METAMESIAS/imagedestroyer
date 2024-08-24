@@ -3,89 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METAMESIAS BITMAP EFFECT EXPERIMENT</title>
+    <title>METAMESIAS ERROR DIFFUSION DITHERING EXPERIMENT</title>
 </head>
 <body>
-    <h1>METAMESIAS BITMAP EFFECT EXPERIMENT</h1>
+    <h1>METAMESIAS ERROR DIFFUSION DITHERING EXPERIMENT</h1>
 
-    <!-- Input untuk mengupload gambar -->
+    <!-- Upload Input -->
     <input type="file" id="upload" accept="image/*">
+    <br><br>
 
-    <hr>
+    <!-- Color Customization -->
+    <label for="color1">Color 1:</label>
+    <input type="color" id="color1" value="#000000">
+    
+    <label for="color2">Color 2:</label>
+    <input type="color" id="color2" value="#FFFFFF">
+    <br><br>
 
-    <!-- Kontainer untuk menampilkan canvas dan tombol download -->
-    <div id="canvas-container"></div>
+    <!-- Canvas for displaying the result -->
+    <canvas id="canvas" style="width: 100%; height: auto;"></canvas>
+    <br>
+
+    <!-- Download Button -->
+    <button id="download">Download Dithered Image</button>
 
     <script>
+        let originalImageData = null;
+        let originalWidth = 0;
+        let originalHeight = 0;
+
         document.getElementById('upload').addEventListener('change', function(event) {
-            // Reset canvas-container
-            const container = document.getElementById('canvas-container');
-            while (container.firstChild) {
-                container.removeChild(container.firstChild);
-            }
+            resetCanvas();  // Reset canvas on new upload
 
             const file = event.target.files[0];
             const img = new Image();
-
+            
             img.onload = function() {
                 const newWidth = 360;
                 const scaleFactor = newWidth / img.width;
                 const newHeight = img.height * scaleFactor;
 
-                // Dithering Types
-                const ditheringTypes = [
-                    { name: 'Bayer 2x2', method: applyBayerMatrixDithering, matrix: bayerMatrix2x2 },
-                    { name: 'Bayer 4x4', method: applyBayerMatrixDithering, matrix: bayerMatrix4x4 },
-                    { name: 'Bayer 8x8', method: applyBayerMatrixDithering, matrix: bayerMatrix8x8 },
-                    { name: 'Error Diffusion', method: applyErrorDiffusionDithering }
-                ];
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+                ctx.drawImage(img, 0, 0, newWidth, newHeight);
 
-                ditheringTypes.forEach(type => {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = newWidth;
-                    canvas.height = newHeight;
-                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                // Store the original image data for later use
+                originalImageData = ctx.getImageData(0, 0, newWidth, newHeight);
+                originalWidth = newWidth;
+                originalHeight = newHeight;
 
-                    // Apply Dithering
-                    type.method(ctx, newWidth, newHeight, type.matrix);
+                // Apply Error Diffusion Dithering
+                applyErrorDiffusionDithering(ctx, newWidth, newHeight);
 
-                    // Scale Up
-                    scaleImage(canvas, ctx, newWidth, newHeight, 3);
-
-                    // Append Canvas and Button
-                    appendCanvasAndButton(type.name, canvas);
-                });
+                // Scale up 3x using nearest neighbor
+                scaleImage(canvas, ctx, newWidth, newHeight, 3);
             };
 
             img.src = URL.createObjectURL(file);
         });
 
-        function applyBayerMatrixDithering(ctx, width, height, matrix) {
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            const matrixSize = Math.sqrt(matrix.length);
-
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const index = (y * width + x) * 4;
-                    const oldPixel = data[index];
-                    const matrixValue = matrix[(y % matrixSize) * matrixSize + (x % matrixSize)];
-                    const threshold = (matrixValue / 255) * 255;
-                    const newPixel = oldPixel < threshold ? 0 : 255;
-                    data[index] = newPixel;
-                    data[index + 1] = newPixel;
-                    data[index + 2] = newPixel;
-                    data[index + 3] = 255;
-                }
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-        }
-
         function applyErrorDiffusionDithering(ctx, width, height) {
             const imageData = ctx.getImageData(0, 0, width, height);
             const data = imageData.data;
+
+            const color1 = hexToRgb(document.getElementById('color1').value);
+            const color2 = hexToRgb(document.getElementById('color2').value);
 
             for (let y = 0; y < height; y++) {
                 for (let x = 0; x < width; x++) {
@@ -94,9 +78,10 @@
                     const newPixel = oldPixel < 128 ? 0 : 255;
                     const error = oldPixel - newPixel;
 
-                    data[index] = newPixel;
-                    data[index + 1] = newPixel;
-                    data[index + 2] = newPixel;
+                    const [r, g, b] = newPixel === 0 ? color1 : color2;
+                    data[index] = r;
+                    data[index + 1] = g;
+                    data[index + 2] = b;
                     data[index + 3] = 255;
 
                     if (x + 1 < width) data[(y * width + (x + 1)) * 4] += error * 7 / 16;
@@ -129,58 +114,39 @@
             ctx.drawImage(scaledCanvas, 0, 0);
         }
 
-        function appendCanvasAndButton(name, canvas) {
-            const container = document.getElementById('canvas-container');
-            const div = document.createElement('div');
-
-            const label = document.createElement('p');
-            label.textContent = name;
-            div.appendChild(label);
-
-            // Ensure canvas is responsive
-            canvas.style.width = "100%";
-            canvas.style.height = "auto";
-
-            div.appendChild(canvas);
-
-            const button = document.createElement('button');
-            button.textContent = `Download ${name}`;
-            button.addEventListener('click', () => downloadCanvasAsImage(canvas, name));
-            div.appendChild(button);
-
-            container.appendChild(div);
+        function resetCanvas() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            originalImageData = null;
         }
 
-        function downloadCanvasAsImage(canvas, name) {
+        document.getElementById('download').addEventListener('click', function() {
+            const canvas = document.getElementById('canvas');
             const link = document.createElement('a');
             link.href = canvas.toDataURL();
-            link.download = `${name}.png`;
+            link.download = 'dithered-image.png';
             link.click();
+        });
+
+        document.getElementById('color1').addEventListener('input', recolorImage);
+        document.getElementById('color2').addEventListener('input', recolorImage);
+
+        function recolorImage() {
+            if (originalImageData) {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.putImageData(originalImageData, 0, 0);
+
+                applyErrorDiffusionDithering(ctx, originalWidth, originalHeight);
+                scaleImage(canvas, ctx, originalWidth, originalHeight, 3);
+            }
         }
 
-        // Bayer matrices
-        const bayerMatrix2x2 = [
-            0, 128,
-            192, 64
-        ];
-
-        const bayerMatrix4x4 = [
-            0, 128, 32, 160,
-            192, 64, 224, 96,
-            48, 176, 16, 144,
-            240, 112, 208, 80
-        ];
-
-        const bayerMatrix8x8 = [
-            0, 32, 8, 40, 2, 34, 10, 42,
-            48, 16, 56, 24, 50, 18, 58, 26,
-            12, 44, 4, 36, 14, 46, 6, 38,
-            60, 28, 52, 20, 62, 30, 54, 22,
-            3, 35, 11, 43, 1, 33, 9, 41,
-            51, 19, 59, 27, 49, 17, 57, 25,
-            15, 47, 7, 39, 13, 45, 5, 37,
-            63, 31, 55, 23, 61, 29, 53, 21
-        ].map(x => x * 4);
+        function hexToRgb(hex) {
+            const bigint = parseInt(hex.slice(1), 16);
+            return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+        }
     </script>
 </body>
 </html>
