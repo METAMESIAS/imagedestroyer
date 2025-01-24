@@ -24,20 +24,16 @@
       </svg>
     </h1>
   </header>
-
   <!--TITLE CONTAINER-->
   <h2 class="flexContainer" id="titleContainer" aria-label="IMAGE DESTROYER" title="IMAGE DESTROYER">
     <p id="titleText">IMAGE<br>DESTROYER</p>
   </h2>
-
   <!--CANVAS CONTAINER-->
   <section class="flexContainer" id="canvasContainer">
     <canvas id="canvasItem"></canvas>
   </section>
-
   <!--CONTROL CONTAINER-->
   <section class="flexContainer" id="controlContainer">
-
     <div class="controlButton">
       <button class="controlItem"><svg class="iconItem buttonIcon" viewBox="0 0 24 16">
           <use href="almakina.svg#leftIcon"></use>
@@ -47,35 +43,29 @@
           <use href="almakina.svg#rightIcon"></use>
         </svg></button>
     </div>
-
     <div class="controlItem controlSlider">
       <span class="sliderText">PIXELATION :</span>
-      <output class="sliderValue" id="sliderPixelValue"></output>
-      <input class="sliderInput" id="sliderPixel" type="range" min="1" value="8" max="32"></input>
+      <output class="sliderValue" id="pixelSizeValue"></output>
+      <input class="sliderInput" id="pixelSize" type="range" min="2" value="8" max="32" step="1"></input>
     </div>
-
     <div class="controlItem controlSlider">
       <span class="sliderText">BRIGHTNESS :</span>
-      <output class="sliderValue" id="sliderBrightnessValue"></output>
-      <input class="sliderInput" id="sliderBrightness" type="range" min="-100" value="-20" max="100"></input>
+      <output class="sliderValue" id="brightnessValue"></output>
+      <input class="sliderInput" id="brightness" type="range" min="-100" value="-20" max="100" step="10"></input>
     </div>
-
     <div class="controlItem controlSlider">
       <span class="sliderText">CONTRAST :</span>
-      <output class="sliderValue" id="sliderContrastValue"></output>
-      <input class="sliderInput" id="sliderContrast" type="range" min="-100" value="60" max="100"></input>
+      <output class="sliderValue" id="contrastValue"></output>
+      <input class="sliderInput" id="contrast" type="range" min="-100" value="60" max="100" step="10"></input>
     </div>
-
     <div class="controlButton">
       <input id="importImage" type="file" accept="image/*" hidden>
       <button class="controlItem" id="importButton">IMPORT</button>
       <button class="controlItem" id="destroyButton"></button>
       <button class="controlItem" id="exportButton">EXPORT</button>
     </div>
-
   </section>
 </body>
-
 <script src="script.js"></script>
 
 </html>
