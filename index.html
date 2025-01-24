@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style_reset.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style_queries.css">
+  <link rel="icon" type="image/x-icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/x-icon" href="favicon16x16.png" type="image/png">
+  <title>IMAGE DESTROYER</title>
+</head>
+
+<body class="gridContainer">
+  <!--HEADER CONTAINER-->
+  <header class="flexContainer" id="headerContainer">
+    <h1 class="flexContainer" id="headerItem" aria-label="ALMAKINA" title="ALMAKINA">
+      <svg class="iconItem headerLogo" viewBox="0 0 94 26">
+        <use href="almakina.svg#logo1"></use>
+      </svg>
+      <svg class="iconItem headerLogo" viewBox="0 0 32 26">
+        <use href="almakina.svg#logo3"></use>
+      </svg>
+    </h1>
+  </header>
+
+  <!--TITLE CONTAINER-->
+  <h2 class="flexContainer" id="titleContainer" aria-label="IMAGE DESTROYER" title="IMAGE DESTROYER">
+    <p id="titleText">IMAGE<br>DESTROYER</p>
+  </h2>
+
+  <!--CANVAS CONTAINER-->
+  <section class="flexContainer" id="canvasContainer">
+    <canvas id="canvasItem"></canvas>
+  </section>
+
+  <!--CONTROL CONTAINER-->
+  <section class="flexContainer" id="controlContainer">
+
+    <div class="controlButton">
+      <button class="controlItem"><svg class="iconItem buttonIcon" viewBox="0 0 24 16">
+          <use href="almakina.svg#leftIcon"></use>
+        </svg></button>
+      <span class="controlItem buttonValue">ERROR DIFFUSION</span>
+      <button class="controlItem"><svg class="iconItem buttonIcon" viewBox="0 0 24 16">
+          <use href="almakina.svg#rightIcon"></use>
+        </svg></button>
+    </div>
+
+    <div class="controlItem controlSlider">
+      <span class="sliderText">PIXELATION :</span>
+      <output class="sliderValue" id="sliderPixelValue"></output>
+      <input class="sliderInput" id="sliderPixel" type="range" min="1" value="8" max="32"></input>
+    </div>
+
+    <div class="controlItem controlSlider">
+      <span class="sliderText">BRIGHTNESS :</span>
+      <output class="sliderValue" id="sliderBrightnessValue"></output>
+      <input class="sliderInput" id="sliderBrightness" type="range" min="-100" value="-20" max="100"></input>
+    </div>
+
+    <div class="controlItem controlSlider">
+      <span class="sliderText">CONTRAST :</span>
+      <output class="sliderValue" id="sliderContrastValue"></output>
+      <input class="sliderInput" id="sliderContrast" type="range" min="-100" value="60" max="100"></input>
+    </div>
+
+    <div class="controlButton">
+      <input id="importImage" type="file" accept="image/*" hidden>
+      <button class="controlItem" id="importButton">IMPORT</button>
+      <button class="controlItem" id="destroyButton"></button>
+      <button class="controlItem" id="exportButton">EXPORT</button>
+    </div>
+
+  </section>
+</body>
+
+<script src="script.js"></script>
+
+</html>

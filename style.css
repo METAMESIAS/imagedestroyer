@@ -1,0 +1,119 @@
+/*GRID CONTAINER*/
+.gridContainer {
+	display: grid;
+	width: 100dvw;
+	height: 100dvh;
+	place-items: center;
+	grid-template-areas:
+		"A"
+		"B"
+		"C";
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr 1fr;
+}
+
+/*GRID ITEM*/
+.flexContainer {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*HEADER CONTAINER*/
+#headerContainer {
+	grid-area: A;
+}
+
+#headerItem {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.headerLogo {
+	height: var(--52px);
+}
+
+/*TITLE CONTAINER*/
+#titleContainer {
+	z-index: 1;
+	grid-area: B;
+	width: 100dvw;
+	aspect-ratio: 1/1;
+}
+
+#titleText {
+	color: var(--grayf);
+	padding: var(--24px);
+	font-size: var(--48px);
+	align-self: end;
+}
+
+/*CANVAS CONTAINER*/
+#canvasContainer {
+	grid-area: B;
+	width: 100dvw;
+	aspect-ratio: 1/1;
+	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: scroll;
+	padding: var(--12px);
+	background-color: var(--blue6);
+}
+
+#canvasItem {
+	width: 100%;
+	height: auto;
+	margin: auto;
+	object-fit: contain;
+}
+
+/*CONTROL CONTAINER*/
+#controlContainer {
+	grid-area: C;
+	gap: var(--4px);
+	font-size: var(--12px);
+	flex-direction: column;
+}
+
+.controlButton,
+.controlSlider {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.controlItem {
+	padding: var(--12px);
+}
+
+.sliderText {
+	width: 12ch;
+	text-align-last: justify;
+}
+
+.sliderValue {
+	width: 6ch;
+}
+
+.sliderInput {
+	flex: 1;
+}
+
+.buttonIcon {
+	height: var(--12px);
+}
+
+/*BUTTONS & ICON SETTING*/
+.iconItem {
+	fill: var(--grayc);
+}
+
+button:active {
+	fill: var(--black);
+	color: var(--black);
+	background-color: var(--grayc);
+}

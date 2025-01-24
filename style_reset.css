@@ -1,0 +1,196 @@
+@font-face {
+	font-family: 'ALMAKINA';
+	src: url(ALMAKINA-Regular.woff);
+}
+
+:root {
+	font-size: 16px;
+	--2px: 0.125rem;
+	--3px: 0.1875rem;
+	--4px: 0.25rem;
+	--5px: 0.3125rem;
+	--6px: 0.375rem;
+	--8px: 0.5rem;
+	--9px: 0.625rem;
+	--10px: 0.625rem;
+	--12px: 0.75rem;
+	--14px: 0.875rem;
+	--16px: 1rem;
+	--18px: 1.125rem;
+	--20px: 1.25rem;
+	--24px: 1.5rem;
+	--28px: 1.75rem;
+	--32px: 2rem;
+	--36px: 2.25rem;
+	--40px: 2.5rem;
+	--48px: 3rem;
+	--52px: 3.25rem;
+	--64px: 4rem;
+	--72px: 4.5rem;
+	--320px: 20rem;
+	--black: #000000;
+	--gray1: #111111;
+	--gray2: #222222;
+	--gray3: #333333;
+	--gray4: #444444;
+	--gray5: #555555;
+	--gray6: #666666;
+	--gray7: #777777;
+	--gray8: #888888;
+	--gray9: #999999;
+	--graya: #AAAAAA;
+	--grayb: #BBBBBB;
+	--grayc: #CCCCCC;
+	--grayd: #DDDDDD;
+	--graye: #EEEEEE;
+	--grayf: #FFFFFF;
+	--white: #ffffff;
+	--red1: #110000;
+	--red2: #220000;
+	--red3: #330000;
+	--red4: #440000;
+	--red5: #550000;
+	--red6: #660000;
+	--red7: #770000;
+	--red8: #880000;
+	--red9: #990000;
+	--reda: #AA0000;
+	--redb: #BB0000;
+	--redc: #CC0000;
+	--redd: #DD0000;
+	--rede: #EE0000;
+	--redf: #FF0000;
+	--blue1: #000011;
+	--blue2: #000022;
+	--blue3: #000033;
+	--blue4: #000044;
+	--blue5: #000055;
+	--blue6: #000066;
+	--blue7: #000077;
+	--blue8: #000088;
+	--blue9: #000099;
+	--bluea: #0000AA;
+	--blueb: #0000BB;
+	--bluec: #0000CC;
+	--blued: #0000DD;
+	--bluee: #0000EE;
+	--bluef: #0000FF;
+	--green1: #001100;
+	--green2: #002200;
+	--green3: #003300;
+	--green4: #004400;
+	--green5: #005500;
+	--green6: #006600;
+	--green7: #007700;
+	--green8: #008800;
+	--green9: #009900;
+	--greena: #00AA00;
+	--greenb: #00BB00;
+	--greenc: #00CC00;
+	--greend: #00DD00;
+	--greene: #00EE00;
+	--greenf: #00FF00;
+	--highlight: #00000060;
+}
+
+html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	scroll-behavior: smooth;
+	box-sizing: border-box;
+	font-family: 'ALMAKINA', monospace;
+	font-optical-sizing: auto;
+	text-align: center;
+	text-rendering: optimizeSpeed;
+	-webkit-font-smoothing: antialiased;
+	user-select: none;
+	-ms-text-size-adjust: 100%;
+	color: var(--grayc);
+	background-color: var(--black);
+}
+
+*,
+*::before,
+*::after {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	color: inherit;
+	background: none;
+	list-style: none;
+	box-sizing: inherit;
+	font-family: inherit;
+	text-transform: none;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	text-transform: none;
+	font-size: var(--16px);
+}
+
+svg,
+img,
+video,
+canvas,
+picture {
+	display: block;
+	box-sizing: border-box;
+}
+
+input,
+label,
+output,
+button,
+select,
+textarea {
+	font: inherit;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+input[type=range] {
+	margin: 0;
+	padding: 0;
+	height: var(--2px);
+	background-color: var(--gray5);
+}
+
+input[type=range]::-webkit-slider-thumb {
+	color: var(--graya);
+	background-color: var(--graya);
+}
+
+input[type=range]::-moz-range-thumb {
+	color: var(--graya);
+	background-color: var(--graya);
+}
+
+input[type=range]::-ms-thumb {
+	color: var(--graya);
+	background-color: var(--graya);
+}
